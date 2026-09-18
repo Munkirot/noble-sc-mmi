@@ -1,0 +1,1951 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>NOBLE — $10,000 Zero Build Tournament</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    --yellow: #ffd400;
+    --yellow-light: #ffe866;
+    --black: #050505;
+    --dark: #0b0b0b;
+    --card: #101010;
+    --border: rgba(255, 212, 0, .16);
+    --muted: #858585;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background: var(--black);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.bg {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    background:
+        radial-gradient(circle at 50% -10%, rgba(255,212,0,.14), transparent 35%),
+        radial-gradient(circle at 90% 60%, rgba(255,212,0,.07), transparent 28%),
+        #050505;
+}
+
+.grid {
+    position: fixed;
+    inset: -100%;
+    z-index: -8;
+    background-image:
+        linear-gradient(rgba(255,212,0,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,212,0,.035) 1px, transparent 1px);
+    background-size: 65px 65px;
+    transform: perspective(500px) rotateX(60deg);
+    animation: gridMove 18s linear infinite;
+}
+
+@keyframes gridMove {
+    from {
+        transform: perspective(500px) rotateX(60deg) translateY(0);
+    }
+
+    to {
+        transform: perspective(500px) rotateX(60deg) translateY(65px);
+    }
+}
+
+.glow {
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: var(--yellow);
+    filter: blur(150px);
+    opacity: .07;
+    z-index: -7;
+    animation: floating 8s ease-in-out infinite;
+}
+
+.glow.one {
+    left: -220px;
+    top: 20%;
+}
+
+.glow.two {
+    right: -220px;
+    bottom: 5%;
+    animation-delay: -4s;
+}
+
+@keyframes floating {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-50px);
+    }
+}
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    height: 78px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    background: rgba(5,5,5,.72);
+    backdrop-filter: blur(18px);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 900;
+    letter-spacing: 5px;
+}
+
+.logo span {
+    color: var(--yellow);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav button,
+.nav a {
+    color: #aaa;
+    text-decoration: none;
+    border: 1px solid transparent;
+    background: transparent;
+    padding: 10px 15px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.nav button:hover,
+.nav a:hover {
+    color: white;
+    border-color: var(--border);
+    background: rgba(255,212,0,.05);
+}
+
+.admin-btn {
+    border-color: rgba(255,255,255,.12) !important;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: calc(100vh - 78px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px 100px;
+    position: relative;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 1050px;
+}
+
+.live {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 16px;
+    border: 1px solid var(--border);
+    background: rgba(255,212,0,.05);
+    border-radius: 100px;
+    color: #ddd;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--yellow);
+    box-shadow: 0 0 18px var(--yellow);
+    animation: pulse 1.4s infinite;
+}
+
+@keyframes pulse {
+    0%,100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: .35;
+        transform: scale(.7);
+    }
+}
+
+.hero h1 {
+    font-size: clamp(55px, 10vw, 125px);
+    line-height: .83;
+    font-weight: 900;
+    letter-spacing: -7px;
+    text-transform: uppercase;
+}
+
+.hero h1 .yellow {
+    display: block;
+    color: var(--yellow);
+    text-shadow:
+        0 0 25px rgba(255,212,0,.25),
+        0 0 80px rgba(255,212,0,.08);
+}
+
+.hero-subtitle {
+    margin-top: 28px;
+    color: #aaa;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 5px;
+}
+
+.hero-description {
+    max-width: 650px;
+    margin: 22px auto 0;
+    color: #707070;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.hero-buttons {
+    margin-top: 36px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.primary {
+    border: none;
+    background: var(--yellow);
+    color: #050505;
+    padding: 17px 31px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: .25s;
+    box-shadow: 0 0 35px rgba(255,212,0,.12);
+}
+
+.primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 45px rgba(255,212,0,.18);
+}
+
+.secondary {
+    border: 1px solid rgba(255,255,255,.13);
+    background: rgba(255,255,255,.035);
+    color: white;
+    padding: 17px 31px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .25s;
+}
+
+.secondary:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats {
+    max-width: 1050px;
+    margin: -20px auto 100px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 12px;
+}
+
+.stat {
+    padding: 25px 20px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: linear-gradient(
+        145deg,
+        rgba(255,212,0,.045),
+        rgba(255,255,255,.018)
+    );
+    border-radius: 12px;
+    text-align: center;
+}
+
+.stat strong {
+    display: block;
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.stat strong.yellow {
+    color: var(--yellow);
+}
+
+.stat small {
+    display: block;
+    color: #666;
+    margin-top: 7px;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+section {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+
+.section-label {
+    color: var(--yellow);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: -2px;
+}
+
+.section-text {
+    color: #707070;
+    max-width: 650px;
+    margin-top: 15px;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.cards {
+    margin-top: 35px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 13px;
+}
+
+.card {
+    padding: 28px;
+    background: #0c0c0c;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 12px;
+    transition: .25s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255,212,0,.25);
+}
+
+.card-icon {
+    font-size: 24px;
+    margin-bottom: 18px;
+}
+
+.card h3 {
+    font-size: 16px;
+    margin-bottom: 9px;
+}
+
+.card p {
+    color: #666;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* =========================
+   PRIZE
+========================= */
+
+.prize-box {
+    margin-top: 35px;
+    padding: 55px 30px;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid rgba(255,212,0,.2);
+    background:
+        radial-gradient(circle at center, rgba(255,212,0,.1), transparent 55%),
+        #0a0a0a;
+}
+
+.prize-label {
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 4px;
+    font-weight: 900;
+}
+
+.prize {
+    margin-top: 8px;
+    color: var(--yellow);
+    font-size: clamp(55px,9vw,100px);
+    font-weight: 900;
+    letter-spacing: -5px;
+    text-shadow: 0 0 50px rgba(255,212,0,.18);
+}
+
+.prize-note {
+    color: #666;
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+/* =========================
+   DISCORD
+========================= */
+
+.discord {
+    text-align: center;
+}
+
+.discord-box {
+    margin-top: 30px;
+    padding: 40px 25px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: #0b0b0b;
+    border-radius: 14px;
+}
+
+.discord-box h3 {
+    font-size: 25px;
+}
+
+.discord-box p {
+    margin: 12px auto 25px;
+    max-width: 550px;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.discord-btn {
+    display: inline-block;
+    padding: 14px 24px;
+    border-radius: 7px;
+    background: var(--yellow);
+    color: black;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+/* =========================
+   FAQ
+========================= */
+
+.faq {
+    margin-top: 30px;
+}
+
+.faq-item {
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 20px 0;
+}
+
+.faq-question {
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.faq-answer {
+    color: #666;
+    margin-top: 9px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    border-top: 1px solid rgba(255,255,255,.07);
+    padding: 35px 20px;
+    text-align: center;
+    color: #444;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* =========================
+   MODALS
+========================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.82);
+    backdrop-filter: blur(16px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 100;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #0b0b0b;
+    border: 1px solid rgba(255,212,0,.16);
+    border-radius: 14px;
+    padding: 32px;
+    box-shadow: 0 30px 100px rgba(0,0,0,.8);
+    animation: modalIn .25s ease;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.modal h2 {
+    font-size: 25px;
+}
+
+.modal-desc {
+    color: #666;
+    font-size: 12px;
+    line-height: 1.6;
+    margin: 8px 0 25px;
+}
+
+label {
+    display: block;
+    margin: 16px 0 7px;
+    color: #999;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 14px;
+    border-radius: 7px;
+    border: 1px solid rgba(255,255,255,.1);
+    background: #111;
+    color: white;
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--yellow);
+}
+
+textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.modal-primary {
+    width: 100%;
+    margin-top: 23px;
+    padding: 15px;
+    border: none;
+    border-radius: 7px;
+    background: var(--yellow);
+    color: black;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.modal-secondary {
+    width: 100%;
+    margin-top: 9px;
+    padding: 14px;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 7px;
+    background: transparent;
+    color: #777;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.success {
+    display: none;
+    text-align: center;
+}
+
+.success-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,212,0,.1);
+    color: var(--yellow);
+    font-size: 30px;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin-tools {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.admin-tools input {
+    flex: 1;
+}
+
+.add-field-btn {
+    padding: 0 16px;
+    border: none;
+    border-radius: 7px;
+    background: var(--yellow);
+    color: black;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.field-editor {
+    margin-top: 12px;
+}
+
+.field-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.field-row input {
+    flex: 1;
+}
+
+.delete-field {
+    width: 45px;
+    border: 1px solid rgba(255,255,255,.1);
+    background: transparent;
+    color: #777;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.delete-field:hover {
+    color: #ff5555;
+}
+
+.registrations {
+    margin-top: 25px;
+}
+
+.registration {
+    border: 1px solid rgba(255,255,255,.08);
+    background: #111;
+    border-radius: 9px;
+    padding: 16px;
+    margin-bottom: 9px;
+}
+
+.registration-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.registration-number {
+    color: var(--yellow);
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.delete-registration {
+    border: none;
+    background: transparent;
+    color: #555;
+    cursor: pointer;
+}
+
+.delete-registration:hover {
+    color: #ff5555;
+}
+
+.answer {
+    padding: 9px 0;
+    border-top: 1px solid rgba(255,255,255,.05);
+}
+
+.answer-label {
+    color: #666;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.answer-value {
+    margin-top: 4px;
+    color: #ddd;
+    font-size: 12px;
+    word-break: break-word;
+}
+
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #555;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:750px) {
+
+    .nav a {
+        display: none;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        letter-spacing: -4px;
+    }
+
+    .hero-subtitle {
+        font-size: 12px;
+        letter-spacing: 3px;
+    }
+
+    section {
+        padding: 60px 20px;
+    }
+
+    .section-title {
+        font-size: 33px;
+    }
+}
+
+@media(max-width:430px) {
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-box {
+        padding: 24px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="grid"></div>
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo">
+        NOBLE<span>.</span>
+    </div>
+
+    <div class="nav">
+
+        <a href="#about">ABOUT</a>
+        <a href="#prize">PRIZE</a>
+        <a href="#faq">FAQ</a>
+
+        <button class="admin-btn" onclick="openAdminLogin()">
+            ADMINS
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<main>
+
+<div class="hero">
+
+    <div class="hero-content">
+
+        <div class="live">
+            <span class="live-dot"></span>
+            OFFICIAL NOBLE TOURNAMENT
+        </div>
+
+        <h1>
+            <span class="yellow">$10,000</span>
+            ZERO BUILD
+        </h1>
+
+        <div class="hero-subtitle">
+            DUO TOURNAMENT
+        </div>
+
+        <p class="hero-description">
+            Two players. One duo. Zero Build.
+            Compete in an official Noble tournament
+            for a share of the $10,000 prize pool.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button class="primary" onclick="openJoin()">
+                JOIN TOURNAMENT →
+            </button>
+
+            <a class="secondary" href="#about">
+                EVENT DETAILS
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     STATS
+========================= -->
+
+<div class="stats">
+
+    <div class="stat">
+        <strong class="yellow">$10,000</strong>
+        <small>PRIZE POOL</small>
+    </div>
+
+    <div class="stat">
+        <strong>DUOS</strong>
+        <small>TEAM SIZE</small>
+    </div>
+
+    <div class="stat">
+        <strong>ZERO BUILD</strong>
+        <small>GAME MODE</small>
+    </div>
+
+    <div class="stat">
+        <strong>NOBLE</strong>
+        <small>ORGANIZER</small>
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section id="about">
+
+    <div class="section-label">
+        THE EVENT
+    </div>
+
+    <div class="section-title">
+        BUILT FOR COMPETITION.
+    </div>
+
+    <p class="section-text">
+        The Noble $10,000 Zero Build Duo Tournament
+        brings competitive players together for a
+        high-stakes Zero Build competition.
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="card-icon">⚡</div>
+            <h3>ZERO BUILD</h3>
+            <p>
+                Pure movement, aim, positioning and
+                decision making. No building required.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">👥</div>
+            <h3>DUOS</h3>
+            <p>
+                Team up with your duo and compete
+                together throughout the tournament.
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🏆</div>
+            <h3>$10,000</h3>
+            <p>
+                A $10,000 prize pool is waiting for
+                the competitors who reach the top.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PRIZE
+========================= -->
+
+<section id="prize">
+
+    <div class="section-label">
+        THE STAKES
+    </div>
+
+    <div class="section-title">
+        $10,000 PRIZE POOL
+    </div>
+
+    <div class="prize-box">
+
+        <div class="prize-label">
+            TOTAL PRIZE POOL
+        </div>
+
+        <div class="prize">
+            $10,000
+        </div>
+
+        <div class="prize-note">
+            Prize distribution and tournament information
+            will be announced by Noble.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     DISCORD
+========================= -->
+
+<section class="discord">
+
+    <div class="section-label">
+        COMMUNITY
+    </div>
+
+    <div class="section-title">
+        JOIN THE NOBLE DISCORD
+    </div>
+
+    <div class="discord-box">
+
+        <h3>Stay in the loop.</h3>
+
+        <p>
+            Tournament announcements, updates, rules,
+            results and community information will be
+            shared through the Noble Discord.
+        </p>
+
+        <a
+            class="discord-btn"
+            id="discordLink"
+            href="#"
+            target="_blank"
+        >
+            JOIN DISCORD →
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FAQ
+========================= -->
+
+<section id="faq">
+
+    <div class="section-label">
+        INFORMATION
+    </div>
+
+    <div class="section-title">
+        FAQ
+    </div>
+
+    <div class="faq">
+
+        <div class="faq-item">
+            <div class="faq-question">
+                What is the format?
+            </div>
+
+            <div class="faq-answer">
+                This is a Duo Zero Build tournament.
+                Full tournament rules will be announced
+                by Noble.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                How do I register?
+            </div>
+
+            <div class="faq-answer">
+                Click "Join Tournament" and complete
+                the registration form.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                Where will updates be posted?
+            </div>
+
+            <div class="faq-answer">
+                Tournament information and announcements
+                will be shared through the Noble Discord.
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                When will more information be available?
+            </div>
+
+            <div class="faq-answer">
+                Registered participants will receive
+                additional information in the coming days.
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+    NOBLE ESPORTS • $10,000 ZERO BUILD DUO TOURNAMENT
+</footer>
+
+
+<!-- =========================
+     JOIN MODAL
+========================= -->
+
+<div class="modal" id="joinModal">
+
+    <div class="modal-box">
+
+        <div id="joinForm">
+
+            <h2>Join Tournament</h2>
+
+            <div class="modal-desc">
+                Complete the registration form below.
+            </div>
+
+            <div id="publicFields"></div>
+
+            <button
+                class="modal-primary"
+                onclick="submitRegistration()"
+            >
+                CONFIRM REGISTRATION
+            </button>
+
+            <button
+                class="modal-secondary"
+                onclick="closeModals()"
+            >
+                CANCEL
+            </button>
+
+        </div>
+
+
+        <div class="success" id="success">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h2>You're Registered</h2>
+
+            <p style="
+                color:#777;
+                margin-top:12px;
+                line-height:1.7;
+                font-size:13px;
+            ">
+                Thank you for participating in the
+                Noble $10,000 Zero Build Duo Tournament.
+            </p>
+
+            <p style="
+                color:#777;
+                margin-top:8px;
+                line-height:1.7;
+                font-size:13px;
+            ">
+                More information will be provided
+                in the coming days.
+            </p>
+
+            <button
+                class="modal-secondary"
+                onclick="closeModals()"
+            >
+                CLOSE
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ADMIN LOGIN
+========================= -->
+
+<div class="modal" id="adminLogin">
+
+    <div class="modal-box">
+
+        <h2>Admin Access</h2>
+
+        <div class="modal-desc">
+            Authorized Noble administrators only.
+        </div>
+
+        <label>ADMIN CODE</label>
+
+        <input
+            type="password"
+            id="adminCode"
+            placeholder="Enter admin code"
+        >
+
+        <button
+            class="modal-primary"
+            onclick="verifyAdmin()"
+        >
+            ACCESS PANEL
+        </button>
+
+        <button
+            class="modal-secondary"
+            onclick="closeModals()"
+        >
+            CANCEL
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ADMIN PANEL
+========================= -->
+
+<div class="modal" id="adminPanel">
+
+    <div class="modal-box">
+
+        <h2>Admin Panel</h2>
+
+        <div class="modal-desc">
+            Manage registration fields and view
+            submitted tournament information.
+        </div>
+
+
+        <label>ADD FORM FIELD</label>
+
+        <div class="admin-tools">
+
+            <input
+                id="newField"
+                type="text"
+                placeholder="Example: Discord Username"
+            >
+
+            <button
+                class="add-field-btn"
+                onclick="addField()"
+            >
+                ADD
+            </button>
+
+        </div>
+
+
+        <label>FORM FIELDS</label>
+
+        <div
+            class="field-editor"
+            id="fieldEditor"
+        ></div>
+
+
+        <button
+            class="modal-primary"
+            onclick="saveFields()"
+        >
+            SAVE FORM FIELDS
+        </button>
+
+
+        <label style="margin-top:28px;">
+            REGISTRATIONS
+        </label>
+
+        <div
+            class="registrations"
+            id="registrations"
+        ></div>
+
+
+        <button
+            class="modal-secondary"
+            onclick="closeModals()"
+        >
+            CLOSE
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+/*
+   Replace this with your real Noble Discord invite.
+*/
+
+const DISCORD_URL = "https://discord.gg/YOUR-DISCORD";
+
+
+/*
+   Demo admin code.
+
+   IMPORTANT:
+   In a real public website, an admin password/code
+   must NOT be kept inside frontend JavaScript.
+   This is only for local testing.
+*/
+
+const ADMIN_CODE = "noble67";
+
+
+/* =====================================================
+   DEFAULT FORM
+===================================================== */
+
+const DEFAULT_FIELDS = [
+    "Email Address",
+    "Epic Games Name",
+    "Discord Username",
+    "Duo Partner"
+];
+
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+function getFields() {
+
+    const saved =
+        localStorage.getItem("nobleFields");
+
+    if (!saved) {
+        return DEFAULT_FIELDS;
+    }
+
+    return JSON.parse(saved);
+}
+
+
+function getRegistrations() {
+
+    const saved =
+        localStorage.getItem("nobleRegistrations");
+
+    if (!saved) {
+        return [];
+    }
+
+    return JSON.parse(saved);
+}
+
+
+function saveRegistrations(data) {
+
+    localStorage.setItem(
+        "nobleRegistrations",
+        JSON.stringify(data)
+    );
+}
+
+
+/* =====================================================
+   DISCORD
+===================================================== */
+
+document.getElementById("discordLink").href = DISCORD_URL;
+
+
+/* =====================================================
+   JOIN FORM
+===================================================== */
+
+function openJoin() {
+
+    renderPublicFields();
+
+    document.getElementById("joinModal")
+        .classList.add("active");
+
+    document.getElementById("joinForm")
+        .style.display = "block";
+
+    document.getElementById("success")
+        .style.display = "none";
+}
+
+
+function renderPublicFields() {
+
+    const container =
+        document.getElementById("publicFields");
+
+    container.innerHTML = "";
+
+    getFields().forEach((field, index) => {
+
+        const label =
+            document.createElement("label");
+
+        label.textContent =
+            field.toUpperCase();
+
+        const input =
+            document.createElement("input");
+
+        input.type = field.toLowerCase().includes("email")
+            ? "email"
+            : "text";
+
+        input.placeholder =
+            "Enter your " + field.toLowerCase();
+
+        input.dataset.fieldIndex = index;
+
+        container.appendChild(label);
+        container.appendChild(input);
+    });
+}
+
+
+function submitRegistration() {
+
+    const fields =
+        getFields();
+
+    const inputs =
+        document.querySelectorAll(
+            "#publicFields input"
+        );
+
+    const answers = {};
+
+    let valid = true;
+
+    inputs.forEach((input, index) => {
+
+        const value =
+            input.value.trim();
+
+        if (!value) {
+            valid = false;
+        }
+
+        answers[fields[index]] =
+            value;
+    });
+
+    if (!valid) {
+
+        alert(
+            "Please complete all registration fields."
+        );
+
+        return;
+    }
+
+
+    const registrations =
+        getRegistrations();
+
+    registrations.push({
+
+        id: Date.now(),
+
+        submittedAt:
+            new Date().toLocaleString(),
+
+        answers: answers
+
+    });
+
+
+    saveRegistrations(registrations);
+
+
+    document.getElementById("joinForm")
+        .style.display = "none";
+
+    document.getElementById("success")
+        .style.display = "block";
+}
+
+
+/* =====================================================
+   ADMIN LOGIN
+===================================================== */
+
+function openAdminLogin() {
+
+    document.getElementById("adminLogin")
+        .classList.add("active");
+
+    document.getElementById("adminCode").value = "";
+}
+
+
+function verifyAdmin() {
+
+    const code =
+        document.getElementById("adminCode").value;
+
+    if (code !== ADMIN_CODE) {
+
+        alert("Invalid admin code.");
+
+        return;
+    }
+
+
+    document.getElementById("adminLogin")
+        .classList.remove("active");
+
+    openAdminPanel();
+}
+
+
+function openAdminPanel() {
+
+    renderFieldEditor();
+    renderRegistrations();
+
+    document.getElementById("adminPanel")
+        .classList.add("active");
+}
+
+
+/* =====================================================
+   ADMIN FIELD EDITOR
+===================================================== */
+
+function renderFieldEditor() {
+
+    const editor =
+        document.getElementById("fieldEditor");
+
+    editor.innerHTML = "";
+
+    getFields().forEach((field, index) => {
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "field-row";
+
+
+        const input =
+            document.createElement("input");
+
+        input.value = field;
+
+        input.dataset.index = index;
+
+
+        const remove =
+            document.createElement("button");
+
+        remove.className =
+            "delete-field";
+
+        remove.textContent =
+            "×";
+
+        remove.onclick =
+            function() {
+
+                const fields =
+                    getFields();
+
+                fields.splice(index, 1);
+
+                localStorage.setItem(
+                    "nobleFields",
+                    JSON.stringify(fields)
+                );
+
+                renderFieldEditor();
+            };
+
+
+        row.appendChild(input);
+        row.appendChild(remove);
+
+        editor.appendChild(row);
+    });
+}
+
+
+function addField() {
+
+    const input =
+        document.getElementById("newField");
+
+    const name =
+        input.value.trim();
+
+    if (!name) {
+
+        alert("Enter a field name.");
+
+        return;
+    }
+
+
+    const fields =
+        getFields();
+
+    fields.push(name);
+
+    localStorage.setItem(
+        "nobleFields",
+        JSON.stringify(fields)
+    );
+
+    input.value = "";
+
+    renderFieldEditor();
+}
+
+
+function saveFields() {
+
+    const inputs =
+        document.querySelectorAll(
+            "#fieldEditor input"
+        );
+
+    const fields = [];
+
+    inputs.forEach(input => {
+
+        const value =
+            input.value.trim();
+
+        if (value) {
+            fields.push(value);
+        }
+    });
+
+
+    if (fields.length === 0) {
+
+        alert(
+            "You need at least one form field."
+        );
+
+        return;
+    }
+
+
+    localStorage.setItem(
+        "nobleFields",
+        JSON.stringify(fields)
+    );
+
+
+    alert(
+        "Form fields saved successfully."
+    );
+}
+
+
+/* =====================================================
+   ADMIN REGISTRATIONS
+===================================================== */
+
+function renderRegistrations() {
+
+    const container =
+        document.getElementById("registrations");
+
+    const registrations =
+        getRegistrations();
+
+    container.innerHTML = "";
+
+
+    if (registrations.length === 0) {
+
+        container.innerHTML =
+            '<div class="empty">No registrations yet.</div>';
+
+        return;
+    }
+
+
+    registrations
+        .slice()
+        .reverse()
+        .forEach((registration, reverseIndex) => {
+
+            const originalIndex =
+                registrations.length -
+                1 -
+                reverseIndex;
+
+
+            const box =
+                document.createElement("div");
+
+            box.className =
+                "registration";
+
+
+            const header =
+                document.createElement("div");
+
+            header.className =
+                "registration-header";
+
+
+            const number =
+                document.createElement("div");
+
+            number.className =
+                "registration-number";
+
+            number.textContent =
+                "REGISTRATION #" +
+                (originalIndex + 1);
+
+
+            const deleteBtn =
+                document.createElement("button");
+
+            deleteBtn.className =
+                "delete-registration";
+
+            deleteBtn.textContent =
+                "DELETE";
+
+            deleteBtn.onclick =
+                function() {
+
+                    if (
+                        !confirm(
+                            "Delete this registration?"
+                        )
+                    ) {
+                        return;
+                    }
+
+
+                    const data =
+                        getRegistrations();
+
+                    data.splice(
+                        originalIndex,
+                        1
+                    );
+
+                    saveRegistrations(data);
+
+                    renderRegistrations();
+                };
+
+
+            header.appendChild(number);
+            header.appendChild(deleteBtn);
+
+            box.appendChild(header);
+
+
+            Object.entries(
+                registration.answers
+            ).forEach(([field, value]) => {
+
+                const answer =
+                    document.createElement("div");
+
+                answer.className =
+                    "answer";
+
+
+                const label =
+                    document.createElement("div");
+
+                label.className =
+                    "answer-label";
+
+                label.textContent =
+                    field.toUpperCase();
+
+
+                const text =
+                    document.createElement("div");
+
+                text.className =
+                    "answer-value";
+
+                text.textContent =
+                    value;
+
+
+                answer.appendChild(label);
+                answer.appendChild(text);
+
+                box.appendChild(answer);
+            });
+
+
+            const time =
+                document.createElement("div");
+
+            time.className =
+                "answer";
+
+
+            const timeLabel =
+                document.createElement("div");
+
+            timeLabel.className =
+                "answer-label";
+
+            timeLabel.textContent =
+                "SUBMITTED";
+
+
+            const timeValue =
+                document.createElement("div");
+
+            timeValue.className =
+                "answer-value";
+
+            timeValue.textContent =
+                registration.submittedAt;
+
+
+            time.appendChild(timeLabel);
+            time.appendChild(timeValue);
+
+            box.appendChild(time);
+
+
+            container.appendChild(box);
+        });
+}
+
+
+/* =====================================================
+   MODALS
+===================================================== */
+
+function closeModals() {
+
+    document.querySelectorAll(".modal")
+        .forEach(modal => {
+
+            modal.classList.remove("active");
+
+        });
+}
+
+
+document.querySelectorAll(".modal")
+    .forEach(modal => {
+
+        modal.addEventListener(
+            "click",
+            function(event) {
+
+                if (
+                    event.target === modal
+                ) {
+                    closeModals();
+                }
+
+            }
+        );
+
+    });
+
+
+/* =====================================================
+   ENTER KEY FOR ADMIN
+===================================================== */
+
+document.getElementById("adminCode")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+                verifyAdmin();
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (event.key === "Escape") {
+            closeModals();
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+```
